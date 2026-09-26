@@ -1,0 +1,96 @@
+{
+  "entities": {
+    "Store": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "branch": { "type": "string" },
+        "phone": { "type": "string" },
+        "currency": { "type": "string" }
+      },
+      "required": ["name", "currency"]
+    },
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "totalDebt": { "type": "number" },
+        "creditLimit": { "type": "number" },
+        "lastTransactionDate": { "type": "string" },
+        "notes": { "type": "string" },
+        "address": { "type": "string" }
+      },
+      "required": ["name", "phone", "totalDebt"]
+    },
+    "Transaction": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["sale", "purchase", "collection", "debt_addition"] },
+        "title": { "type": "string" },
+        "partyName": { "type": "string" },
+        "amount": { "type": "number" },
+        "isDebit": { "type": "boolean" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "fullTimestamp": { "type": "string" },
+        "status": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "items": { "type": "array" }
+      },
+      "required": ["type", "title", "partyName", "amount", "date", "time"]
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "barcode": { "type": "string" },
+        "category": { "type": "string" },
+        "purchasePrice": { "type": "number" },
+        "sellingPrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "unit": { "type": "string" }
+      },
+      "required": ["name", "sellingPrice", "stock"]
+    },
+    "DebtPayment": {
+      "type": "object",
+      "properties": {
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "amount": { "type": "number" },
+        "day": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "remainingDebtAfter": { "type": "number" },
+        "receiptNumber": { "type": "string" },
+        "notes": { "type": "string" },
+        "collectedBy": { "type": "string" }
+      },
+      "required": ["customerId", "customerName", "amount", "day", "date", "time"]
+    }
+  },
+  "firestore": {
+    "/stores/{storeId}": {
+      "schema": "Store",
+      "description": "Store settings and business details"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Customer accounts and outstanding debt balances"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Sales, purchases, collections, and debt adjustments history"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Inventory products, categories, stock, and pricing"
+    },
+    "/debt_payments/{paymentId}": {
+      "schema": "DebtPayment",
+      "description": "Customer debt payment records containing day, date, time, and paid amount"
+    }
+  }
+}

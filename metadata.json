@@ -1,0 +1,6 @@
+{
+  "name": "إدارة المشتريات والديون",
+  "description": "تطبيق ذكي متكامل لإدارة المشتريات والديون والمبيعات والزبائن متوافق مع هواتف الآيفون والأندرويد والتابلت",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

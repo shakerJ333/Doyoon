@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Stores collection: store config & branch metadata
+    match /stores/{storeId} {
+      allow read: if true;
+      allow write: if isValidId(storeId);
+    }
+
+    // Customers collection: accounts and debts
+    match /customers/{customerId} {
+      allow read: if true;
+      allow write: if isValidId(customerId);
+    }
+
+    // Transactions collection: sales, purchases, collections
+    match /transactions/{transactionId} {
+      allow read: if true;
+      allow write: if isValidId(transactionId);
+    }
+
+    // Products collection: inventory and stock
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isValidId(productId);
+    }
+
+    // Debt Payments collection: customer payments with day, date, and amount
+    match /debt_payments/{paymentId} {
+      allow read: if true;
+      allow write: if isValidId(paymentId);
+    }
+
+    // Health check & testing connection document
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}
